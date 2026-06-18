@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TinPot Café — Fitzroy North, Melbourne</title>
+<meta name="description" content="A long-standing neighbourhood café in Fitzroy North, Melbourne. Est. 1993. Open Mon–Sat 8am–4pm, Sun 8:30am–4pm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1e2d1f;
+    --green-mid: #2c4230;
+    --green-light: #3d5c42;
+    --cream: #f0e8d8;
+    --cream-light: #f7f2e8;
+    --amber: #c8863a;
+    --amber-light: #e8a84a;
+    --text-dark: #1a1a18;
+    --text-mid: #3a3830;
+    --text-muted: #7a7568;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--green);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    background: rgba(30, 45, 31, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(200, 180, 140, 0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    font-size: 0.65rem;
+    display: block;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-top: -2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(240, 232, 216, 0.8);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--amber); }
+
+  .nav-book {
+    background: var(--amber);
+    color: var(--green) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-book:hover { background: var(--amber-light) !important; color: var(--green) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--cream);
+    transition: all 0.3s;
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 2.5rem 5rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('public/images/interior2.JPG');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.45);
+    transform: scale(1.03);
+    transition: transform 8s ease;
+  }
+
+  .hero:hover .hero-bg { transform: scale(1); }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--cream);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--amber-light);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(240, 232, 216, 0.75);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--amber);
+    color: var(--green);
+    padding: 0.875rem 2rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    border: 1px solid rgba(240, 232, 216, 0.4);
+    color: var(--cream);
+    padding: 0.875rem 2rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(240, 232, 216, 0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(200, 134, 58, 0.5);
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2.5rem; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--amber-light); }
+
+  /* BROADSHEET QUOTE */
+  .press-strip {
+    background: var(--green-mid);
+    border-top: 1px solid rgba(200, 134, 58, 0.2);
+    border-bottom: 1px solid rgba(200, 134, 58, 0.2);
+    padding: 3rem 2.5rem;
+    overflow: hidden;
+  }
+
+  .press-quote {
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .press-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    line-height: 1.6;
+    color: var(--cream);
+    margin-bottom: 1.25rem;
+  }
+
+  .press-quote cite {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-style: normal;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .about-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: brightness(0.9) saturate(0.9);
+  }
+
+  .about-img.tall {
+    grid-row: span 2;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .about-text p {
+    color: rgba(240, 232, 216, 0.75);
+    margin-bottom: 1.25rem;
+    font-size: 0.98rem;
+    line-height: 1.85;
+  }
+
+  .est-badge {
+    display: inline-block;
+    border: 1px solid rgba(200, 134, 58, 0.4);
+    color: var(--amber);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  /* PHOTO GRID */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 280px 280px;
+    gap: 0.5rem;
+  }
+
+  .photo-grid-item {
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .photo-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.4s ease;
+    filter: brightness(0.85) saturate(0.9);
+  }
+
+  .photo-grid-item:hover img {
+    transform: scale(1.04);
+    filter: brightness(0.95) saturate(1.0);
+  }
+
+  .photo-grid-item.wide { grid-column: span 2; }
+  .photo-grid-item.tall { grid-row: span 2; }
+
+  /* MENU */
+  .menu-section { background: var(--green-mid); }
+
+  .menu-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(200, 134, 58, 0.2);
+  }
+
+  .menu-tab {
+    padding: 0.75rem 1.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240, 232, 216, 0.5);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: -1px;
+  }
+
+  .menu-tab.active,
+  .menu-tab:hover {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+  }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 4rem;
+  }
+
+  .menu-category {
+    margin-bottom: 2.5rem;
+  }
+
+  .menu-category h3 {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(200, 134, 58, 0.2);
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(240, 232, 216, 0.06);
+  }
+
+  .menu-item:last-child { border-bottom: none; }
+
+  .menu-item-left { flex: 1; }
+
+  .menu-item-name {
+    font-size: 0.92rem;
+    color: var(--cream);
+    font-weight: 400;
+    margin-bottom: 0.2rem;
+  }
+
+  .menu-item-desc {
+    font-size: 0.78rem;
+    color: rgba(240, 232, 216, 0.5);
+    line-height: 1.5;
+  }
+
+  .menu-item-price {
+    font-size: 0.85rem;
+    color: var(--amber);
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  .menu-note {
+    font-size: 0.72rem;
+    color: rgba(240, 232, 216, 0.4);
+    margin-top: 2.5rem;
+    line-height: 1.7;
+    border-top: 1px solid rgba(240, 232, 216, 0.08);
+    padding-top: 1.5rem;
+  }
+
+  /* HOURS & LOCATION */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .hours-table { width: 100%; }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(240, 232, 216, 0.08);
+    font-size: 0.9rem;
+  }
+
+  .hours-day { color: rgba(240, 232, 216, 0.6); }
+  .hours-time { color: var(--cream); }
+  .hours-note { font-size: 0.72rem; color: rgba(200, 134, 58, 0.7); margin-top: 0.2rem; }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(200, 134, 58, 0.3);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--amber);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .contact-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-value {
+    font-size: 0.9rem;
+    color: var(--cream);
+  }
+
+  .contact-value a {
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-value a:hover { color: var(--amber); }
+
+  /* REVIEWS */
+  .reviews-section { background: var(--green-mid); }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background: rgba(30, 45, 31, 0.6);
+    border: 1px solid rgba(200, 134, 58, 0.15);
+    border-radius: 2px;
+    padding: 1.75rem;
+  }
+
+  .review-stars {
+    color: var(--amber);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .review-text {
+    font-size: 0.88rem;
+    color: rgba(240, 232, 216, 0.75);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 1.25rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .review-author {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* BOOKING CTA */
+  .booking-cta {
+    text-align: center;
+    padding: 7rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .booking-cta-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('public/images/interior4.JPG');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.25) saturate(0.7);
+  }
+
+  .booking-cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .booking-cta .section-title { margin-bottom: 1rem; }
+
+  .booking-cta p {
+    color: rgba(240, 232, 216, 0.7);
+    margin-bottom: 2.5rem;
+    font-size: 0.98rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0f1a10;
+    padding: 3rem 2.5rem;
+    border-top: 1px solid rgba(200, 134, 58, 0.15);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+  }
+
+  .footer-logo span {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(240, 232, 216, 0.35);
+    text-align: right;
+  }
+
+  /* MOBILE NAV */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--green);
+    z-index: 99;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--cream);
+    text-decoration: none;
+    font-style: italic;
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--amber); }
+
+  .mobile-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-images { grid-template-columns: 1fr 1fr; }
+    .about-img.tall { grid-row: auto; aspect-ratio: 3/4; }
+    .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .photo-grid-item.wide { grid-column: span 2; }
+    .photo-grid-item.tall { grid-row: auto; }
+    .photo-grid-item { height: 200px; }
+    .menu-columns { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-copy { text-align: center; }
+    .menu-tabs { overflow-x: auto; }
+    .press-strip { padding: 2.5rem 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title { font-size: 2.5rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-grid-item.wide { grid-column: span 1; }
+    .photo-grid-item { height: 260px; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    TinPot
+    <span>Est. 1993 · Fitzroy North</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#visit">Visit</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="https://bookingtinpot.vercel.app" class="nav-book">Book a Table</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#menu" onclick="toggleMenu()">Menu</a>
+  <a href="#visit" onclick="toggleMenu()">Visit</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="https://bookingtinpot.vercel.app" style="color: var(--amber);">Book a Table</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Fitzroy North, Melbourne · Est. 1993</p>
+    <h1 class="hero-title">The spot you've<br>always wanted<br>to <em>find.</em></h1>
+    <p class="hero-sub">A long-standing neighbourhood café where good food, good coffee, and an unhurried afternoon still mean something.</p>
+    <div class="hero-actions">
+      <a href="https://bookingtinpot.vercel.app" class="btn-primary">Book a Table</a>
+      <a href="#menu" class="btn-ghost">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- BROADSHEET QUOTE -->
+<div class="press-strip">
+  <div class="press-quote">
+    <blockquote>"At its heart, this longstanding establishment ought to be a model for neighbourhood cafes. From the moment you enter to when you leave, Tin Pot Cafe feels like the spot you've always wanted to find, except that it has been under your nose the whole time."</blockquote>
+    <cite>— Broadsheet Melbourne</cite>
+  </div>
+</div>
+
+<!-- PHOTO GRID -->
+<section style="padding: 0; background: var(--green);">
+  <div class="photo-grid">
+    <div class="photo-grid-item wide"><img src="public/images/interior2.JPG" alt="TinPot interior" loading="lazy"></div>
+    <div class="photo-grid-item"><img src="public/images/food1.JPG" alt="Sausage and scrambled eggs" loading="lazy"></div>
+    <div class="photo-grid-item"><img src="public/images/food2.JPG" alt="Pasta dish" loading="lazy"></div>
+    <div class="photo-grid-item"><img src="public/images/people3.JPG" alt="Staff at TinPot" loading="lazy"></div>
+    <div class="photo-grid-item"><img src="public/images/lamp.JPG" alt="Tiffany lamp interior detail" loading="lazy"></div>
+    <div class="photo-grid-item wide"><img src="public/images/interior3.JPG" alt="TinPot dining room" loading="lazy"></div>
+    <div class="photo-grid-item"><img src="public/images/food3.JPG" alt="Food at TinPot" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-images">
+        <img src="public/images/interior5.JPG" alt="TinPot café interior" class="about-img tall" loading="lazy">
+        <img src="public/images/people2.JPG" alt="Barista pouring coffee" class="about-img" loading="lazy">
+        <img src="public/images/food4.JPG" alt="Food detail" class="about-img" loading="lazy">
+      </div>
+      <div class="about-text">
+        <div class="est-badge">Est. 1993 · Fitzroy North</div>
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-title">A neighbourhood<br>café that <em>earns</em><br>its place.</h2>
+        <p>TinPot has been part of Fitzroy North since 1993. More than three decades of feeding the neighbourhood — the locals who've been coming since the beginning, and the new ones who stumble in and immediately understand why people keep coming back.</p>
+        <p>It's the kind of place where you settle in with a book, let the coffee arrive slowly, and forget what time it is. Mismatched furniture, Tiffany lamps, art on every surface, a fireplace in winter. A kitchen that takes its food seriously without taking itself too seriously.</p>
+        <p>Come in. Stay a while.</p>
+        <a href="#visit" class="btn-primary" style="margin-top: 1rem;">Find Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-inner">
+    <p class="section-eyebrow">The Menu</p>
+    <h2 class="section-title">Food & <em>Drink</em></h2>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="showTab('all-day')">All Day</button>
+      <button class="menu-tab" onclick="showTab('morning')">Breakfast</button>
+      <button class="menu-tab" onclick="showTab('lunch')">Lunch</button>
+      <button class="menu-tab" onclick="showTab('sweets')">Sweets</button>
+      <button class="menu-tab" onclick="showTab('coffee')">Coffee & Tea</button>
+      <button class="menu-tab" onclick="showTab('drinks')">Drinks</button>
+    </div>
+
+    <!-- ALL DAY -->
+    <div class="menu-panel active" id="all-day">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>All Day</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Green Eggs</div><div class="menu-item-desc">Salsa verde scrambled eggs, smoked salmon on toasted bagel with rocket & onion</div></div><div class="menu-item-price">$25 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Benedict</div><div class="menu-item-desc">Poached eggs, grilled double-smoked ham & hollandaise</div></div><div class="menu-item-price">$21.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Florentine</div><div class="menu-item-desc">Poached eggs, sautéed spinach & hollandaise</div></div><div class="menu-item-price">$21.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Omelette</div><div class="menu-item-desc">Potato, spinach, chorizo & salsa verde on toasted ciabatta</div></div><div class="menu-item-price">$21.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Baked Beans</div><div class="menu-item-desc">House-made beans with poached egg & feta on toasted ciabatta</div></div><div class="menu-item-price">$21.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Baked Eggs</div><div class="menu-item-desc">Tomato & smoked paprika sugo with mint, dill & avocado salsa on toasted ciabatta — add chorizo $3.50</div></div><div class="menu-item-price">$21.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Scram Prosciutto</div><div class="menu-item-desc">Scrambled eggs, roasted tomato, crispy prosciutto, rocket & parmesan on toasted ciabatta</div></div><div class="menu-item-price">$23 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Fracassato Avocado</div><div class="menu-item-desc">Mashed avocado, sautéed mushrooms, baby spinach & feta</div></div><div class="menu-item-price">$23.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Eggs My Way on Toast</div><div class="menu-item-desc">Poached / fried / scrambled +$1.50</div></div><div class="menu-item-price">$14 GFO</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Sandwiches & Rolls</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Croque Monsieur</div><div class="menu-item-desc">Egg-enriched bread, mustard, leg ham, béchamel & gruyere</div></div><div class="menu-item-price">$15.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Croque Madame</div><div class="menu-item-desc">Our croque topped with a fried egg</div></div><div class="menu-item-price">$18.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Egg & Bacon Roll</div><div class="menu-item-desc">Two fried eggs, bacon & house-made tomato relish — add cheese $3.50</div></div><div class="menu-item-price">$16.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">TinPot Club</div><div class="menu-item-desc">Chicken, bacon, lettuce, tomato, fried egg & mayo</div></div><div class="menu-item-price">$23.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">A.L.T</div><div class="menu-item-desc">Avocado, lettuce, tomato & mayo — add cheese $3.50</div></div><div class="menu-item-price">$16.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">B.L.T</div><div class="menu-item-desc">Bacon, lettuce, tomato & mayo — add cheese $3.50</div></div><div class="menu-item-price">$16.50 GFO</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="menu-category">
+            <h3>Panini</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Roast Veg Panino</div><div class="menu-item-desc">Mixed roast veg, hummus, salsa verde & lettuce</div></div><div class="menu-item-price">$15.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Mortadella Panino</div><div class="menu-item-desc">Provolone, rocket & pistachio pesto</div></div><div class="menu-item-price">$16.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Poached Chicken Panino</div><div class="menu-item-desc">Pesto mayo, spring onion, maple bacon, lettuce & shaved parmesan</div></div><div class="menu-item-price">$16.50 GFO</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Bakery & Light</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Toast</div><div class="menu-item-desc">Sourdough / GF / bagel / ciabatta / cinnamon fruit bagel — with choice of spreads</div></div><div class="menu-item-price">From $7.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Almond Croissant</div></div><div class="menu-item-price">$7.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Croissant</div></div><div class="menu-item-price">$6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Sweet Muffin</div></div><div class="menu-item-price">$6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Savoury Muffin</div></div><div class="menu-item-price">$7.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">House-Made Toasted Muesli</div><div class="menu-item-desc">Vanilla yoghurt & poached seasonal fruits</div></div><div class="menu-item-price">$16.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Quiche with Salad</div><div class="menu-item-desc">Roast veg / leg ham & leek / potato & cheese</div></div><div class="menu-item-price">$14.50</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Extras</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Egg / hollandaise / spinach / roast tomato</div></div><div class="menu-item-price">$4.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Avocado / field mushrooms / feta</div></div><div class="menu-item-price">$5.00</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Bacon / chorizo / smoked salmon</div></div><div class="menu-item-price">$6.00</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Crispy prosciutto / prosciutto</div></div><div class="menu-item-price">$6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Pan-fried halloumi / grilled chicken</div></div><div class="menu-item-price">$7.00</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-note">GFO = Gluten Free Option available +$2.00 · GF = Gluten Free · Please advise of any allergies · Bills cannot be split · 1.1% card surcharge · 13% public holiday surcharge</div>
+    </div>
+
+    <!-- BREAKFAST -->
+    <div class="menu-panel" id="morning">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>Available Until 11:30am</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Oat Porridge</div><div class="menu-item-desc">Caramelised banana, cinnamon, tahini, yoghurt & honey — alt milk +$1</div></div><div class="menu-item-price">$14.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Cinnamon French Toast</div><div class="menu-item-desc">Strawberry compote, maple syrup & vanilla yoghurt — add bacon $6</div></div><div class="menu-item-price">$18.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Buckwheat Pancake Stack</div><div class="menu-item-desc">3 pancakes, house whipped maple butter, berry compote & pistachios</div></div><div class="menu-item-price">$20 GF</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-note">Breakfast specials available until 11:30am · GFO = Gluten Free Option +$2 · Please advise of allergies</div>
+    </div>
+
+    <!-- LUNCH -->
+    <div class="menu-panel" id="lunch">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>Available From 12pm</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Grilled Chicken & Pumpkin Salad</div><div class="menu-item-desc">Roasted pumpkin, spinach, feta, pistachio & honey balsamic dressing — add avocado $5</div></div><div class="menu-item-price">$24.50 GF</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Avocado & Tuna Salad</div><div class="menu-item-desc">Fresh coriander, jasmine rice, tamari lemon honey dressing & toasted seeds</div></div><div class="menu-item-price">$24.50 GF</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Caesar Salad</div><div class="menu-item-desc">Crispy prosciutto, croutons, fresh tomato & poached egg</div></div><div class="menu-item-price">$20 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chicken Caesar Salad</div><div class="menu-item-desc">Crispy prosciutto, croutons, poached chicken, fresh tomato & poached egg</div></div><div class="menu-item-price">$24.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Steak Sandwich</div><div class="menu-item-desc">Grass-fed sirloin, roast peperonata, salsa verde, rocket & shaved parmesan — add fried egg $4.50</div></div><div class="menu-item-price">$25 GFO</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="menu-category">
+            <h3>Mains</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Grilled Halloumi Plate</div><div class="menu-item-desc">Lemon & oregano tomato, mint, avocado salsa, tzatziki & toasted ciabatta — add prosciutto $5</div></div><div class="menu-item-price">$24 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Pasta</div><div class="menu-item-desc">Spaghetti or penne — Napoli / Bolognese / Pesto</div></div><div class="menu-item-price">$26</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Soup</div><div class="menu-item-desc">Served with herb toast</div></div><div class="menu-item-price">$15.50 GFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Focaccia Bianca</div><div class="menu-item-desc">House-made focaccia, sautéed silver beet, cherry tomatoes, ricotta & chilli</div></div><div class="menu-item-price">$13.50</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Pizza Al Taglio</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Margherita</div></div><div class="menu-item-price">$12.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Olives & Capers</div></div><div class="menu-item-price">$13</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Prosciutto, Parmesan & Rocket</div></div><div class="menu-item-price">$13.50</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Sides</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Garden Salad</div></div><div class="menu-item-price">$8.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Rocket Salad</div></div><div class="menu-item-price">$9.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Herb Toast</div></div><div class="menu-item-price">$10</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-note">Lunch from 12pm · Ask about our lunch specials · GFO = Gluten Free Option +$2</div>
+    </div>
+
+    <!-- SWEETS -->
+    <div class="menu-panel" id="sweets">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>Bakery Sweets</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Cherry Pie</div><div class="menu-item-desc">Served with cream — add ice cream $3.50</div></div><div class="menu-item-price">$12.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Blueberry & Frangipane Brioche</div><div class="menu-item-desc">Served with cream — add ice cream $3.50</div></div><div class="menu-item-price">$12.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Almond & Orange Cake</div><div class="menu-item-desc">Served with cream — add ice cream $3.50</div></div><div class="menu-item-price">$12.50 GF/DFO</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chocolate & Espresso Torte</div><div class="menu-item-desc">Served with cream — add ice cream $3.50</div></div><div class="menu-item-price">$12.50 GF</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COFFEE & TEA -->
+    <div class="menu-panel" id="coffee">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>Coffee</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Caffè</div></div><div class="menu-item-price">$5</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Hot Chocolate</div></div><div class="menu-item-price">$5.50 / $6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Babycino</div></div><div class="menu-item-price">$3</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Dandelion Latte</div></div><div class="menu-item-price">$6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Affogato</div></div><div class="menu-item-price">$10</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Coffee</div><div class="menu-item-desc">With ice cream</div></div><div class="menu-item-price">$10</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Latte</div></div><div class="menu-item-price">$6</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Black</div></div><div class="menu-item-price">$5.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Chocolate</div><div class="menu-item-desc">With ice cream</div></div><div class="menu-item-price">$10</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Extras</div><div class="menu-item-desc">Decaf / double shot / oat / almond / soy / lactose free</div></div><div class="menu-item-price">+$0.50</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="menu-category">
+            <h3>Tea</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Loose Leaf Tea</div><div class="menu-item-desc">English Breakfast · Earl Grey · Peppermint · Spring Green · Rosehip & Fruit · Lemongrass & Ginger · Dandelion</div></div><div class="menu-item-price">$6</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>TinPot House Blended Chai</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chai Tea</div><div class="menu-item-desc">Blended by hand with premium English Breakfast tea & five spices. Brewed with orange peel, honey, ginger & cinnamon — served in a teapot</div></div><div class="menu-item-price">$6</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Chai Latte</div></div><div class="menu-item-price">$7</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Dirty Chai Latte</div></div><div class="menu-item-price">$8</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Chai</div></div><div class="menu-item-price">$6.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Iced Dandelion</div></div><div class="menu-item-price">$6.50</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="menu-panel" id="drinks">
+      <div class="menu-columns">
+        <div>
+          <div class="menu-category">
+            <h3>Cocktails</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Mimosa</div></div><div class="menu-item-price">$18</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Bloody Mary</div></div><div class="menu-item-price">$20</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Espresso Martini</div></div><div class="menu-item-price">$20</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Breakfast Martini</div></div><div class="menu-item-price">$20</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Tom Collins</div></div><div class="menu-item-price">$20</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Spritzers</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Aperol Spritzer</div></div><div class="menu-item-price">$17</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Campari Spritzer</div></div><div class="menu-item-price">$17</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Montenegro Spritzer</div></div><div class="menu-item-price">$20</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Lillet Blanc Spritzer</div></div><div class="menu-item-price">$20</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Wine</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Prosecco D.O.C</div><div class="menu-item-desc">Sparkling</div></div><div class="menu-item-price">$13</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Soave Italian D.O.C</div><div class="menu-item-desc">White</div></div><div class="menu-item-price">$12</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Gamay Noir</div><div class="menu-item-desc">Chilled red · French</div></div><div class="menu-item-price">$12</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Pinot Noir</div><div class="menu-item-desc">Red · French</div></div><div class="menu-item-price">$12</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="menu-category">
+            <h3>Beer & Cider</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Peroni / Heaps Normal / Kaiju Golden Apple</div></div><div class="menu-item-price">$11</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Juices</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Freshly Squeezed OJ</div></div><div class="menu-item-price">$8.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Apple / Grapefruit / Mango / Pineapple / Tomato</div></div><div class="menu-item-price">$7.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Sunset</div><div class="menu-item-desc">Orange, mango, pineapple & lemon</div></div><div class="menu-item-price">$11</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Green</div><div class="menu-item-desc">Apple, spinach, ginger & lime</div></div><div class="menu-item-price">$11</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Reset</div><div class="menu-item-desc">Grapefruit, mint, lemon & lime</div></div><div class="menu-item-price">$11</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Smoothies</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Almond Berry</div><div class="menu-item-desc">Almond milk, berries & cocoa</div></div><div class="menu-item-price">$12</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Coconut Mango</div><div class="menu-item-desc">Coconut yoghurt, mango & lime</div></div><div class="menu-item-price">$12</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Honey Banana</div><div class="menu-item-desc">Oat milk, banana, honey & cinnamon</div></div><div class="menu-item-price">$12</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Milkshakes</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Milkshake</div><div class="menu-item-desc">Vanilla / chocolate / caramel / strawberry / lime</div></div><div class="menu-item-price">$8.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Thickshake</div></div><div class="menu-item-price">$12.50</div></div>
+          </div>
+          <div class="menu-category">
+            <h3>Soft Drinks & Water</h3>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Spadafora Italian Soft Drinks</div><div class="menu-item-desc">Chinotto / Aranciata Rossa / Bergamotto</div></div><div class="menu-item-price">$7.50</div></div>
+            <div class="menu-item"><div class="menu-item-left"><div class="menu-item-name">Mangiatorella Sparkling Water</div></div><div class="menu-item-price">$6.50 / $10.50</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- URBAN LIST QUOTE + SECOND PRESS -->
+<div class="press-strip">
+  <div class="press-quote">
+    <blockquote>"The Tin Pot Cafe has been a warmly laid-back North Fitzroy cafe since the early nineties. Take your pick from the seats reminiscent of your grandma's lounge and order from a rotating specials board for lunch."</blockquote>
+    <cite>— The Urban List</cite>
+  </div>
+</div>
+
+<!-- VISIT / HOURS -->
+<section id="visit">
+  <div class="section-inner">
+    <p class="section-eyebrow">Find Us</p>
+    <h2 class="section-title">Hours & <em>Location</em></h2>
+    <div class="info-grid">
+      <div>
+        <div class="hours-table">
+          <div class="hours-row">
+            <span class="hours-day">Monday – Saturday</span>
+            <div style="text-align:right">
+              <div class="hours-time">8:00am – 4:00pm</div>
+              <div class="hours-note">Kitchen until 3:30pm</div>
+            </div>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Sunday</span>
+            <div style="text-align:right">
+              <div class="hours-time">8:30am – 4:00pm</div>
+              <div class="hours-note">Kitchen until 3:30pm</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 3rem;">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Address</div>
+              <div class="contact-value"><a href="https://maps.google.com/?q=248+St+Georges+Rd+Fitzroy+North+VIC+3068" target="_blank">248–250 St Georges Rd<br>Fitzroy North VIC 3068</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-value"><a href="tel:0394815312">(03) 9481 5312</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-value"><a href="mailto:hello@tinpot.com.au">hello@tinpot.com.au</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3156.8!2d144.9818!3d-37.7844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642f8c8c8c8c8%3A0x0!2s248+St+Georges+Rd%2C+Fitzroy+North+VIC+3068!5e0!3m2!1sen!2sau!4v1"
+          width="100%"
+          height="380"
+          style="border:0; border-radius:2px; filter: saturate(0.7) brightness(0.85);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="TinPot Café location map">
+        </iframe>
+        <p style="font-size: 0.78rem; color: rgba(240,232,216,0.4); margin-top: 0.75rem;">Tram stops directly out front · Street parking available nearby</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="section-inner">
+    <p class="section-eyebrow">What People Say</p>
+    <h2 class="section-title">Thirty years of<br><em>regulars.</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"By far and away the best café Northside! Atmosphere is homely yet lively. Food is on point. A special mention to the adorable Iain — he made us all feel SO WELCOME."</p>
+        <div class="review-author">— John Field</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I had a private hire party at the Tin Pot. I couldn't recommend this gorgeous space more. Iain and his team sorted everything from canapés to drinks, and let us dance into the small hours."</p>
+        <div class="review-author">— Evie Watts</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Charming vintage ambiance with mismatched furniture and creative plant displays. The food — particularly the croque madame and buckwheat pancakes — is delicious."</p>
+        <div class="review-author">— Phill B</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Was convinced by TikTok to come and try TinPot and they did not disappoint. The coffee was a beautiful blend and the prosciutto pizza was delectable."</p>
+        <div class="review-author">— Katie Musgrove</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I had one of the best egg & bacon rolls I've ever had. Ambience is superb, staff are great. The omelette is also great."</p>
+        <div class="review-author">— Rod Turner</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Thanks for making a table available for our friend in her mobility scooter. Your staff really enhanced our enjoyment. The food was also delicious."</p>
+        <div class="review-author">— Peter Ronge</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta">
+  <div class="booking-cta-bg"></div>
+  <div class="booking-cta-content">
+    <p class="section-eyebrow">Reservations</p>
+    <h2 class="section-title">Book your<br><em>table.</em></h2>
+    <p>Groups of 8 or fewer book instantly. Larger groups and private events — get in touch directly.</p>
+    <a href="https://bookingtinpot.vercel.app" class="btn-primary">Book Online</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      TinPot
+      <span>Est. 1993 · Fitzroy North, Melbourne</span>
+    </div>
+    <div style="font-size: 0.78rem; color: rgba(240,232,216,0.4); text-align: center; line-height: 1.9;">
+      248–250 St Georges Rd, Fitzroy North VIC 3068<br>
+      <a href="tel:0394815312" style="color: rgba(240,232,216,0.4); text-decoration:none;">(03) 9481 5312</a> ·
+      <a href="mailto:hello@tinpot.com.au" style="color: rgba(240,232,216,0.4); text-decoration:none;">hello@tinpot.com.au</a>
+    </div>
+    <div class="footer-copy">
+      © 2025 TinPot Café<br>
+      <span style="font-size: 0.65rem;">1.1% card surcharge · 13% public holiday surcharge</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  });
+});
+</script>
+</body>
+</html>
