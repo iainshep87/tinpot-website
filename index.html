@@ -108,7 +108,7 @@
     --text-muted: #7a7568;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--site-header-height, 160px) + 16px); }
 
   body {
     background: var(--green);
@@ -120,10 +120,43 @@
     overflow-x: hidden;
   }
 
+  /* Shared header: announcement remains visible across every section and menu view. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .holiday-banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.15rem 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--amber);
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .holiday-banner span { white-space: nowrap; }
+  .holiday-banner .holiday-booking { text-decoration: underline; text-underline-offset: 3px; }
+  .holiday-banner:hover { background: var(--amber-light); }
+  .holiday-banner:focus-visible { outline: 3px solid var(--cream-light); outline-offset: -5px; }
+
+  @media (max-width: 600px) {
+    .holiday-banner { gap: 0.1rem 0.4rem; padding: 0.65rem 1rem; }
+    .holiday-banner .holiday-separator { display: none; }
+    .holiday-banner .holiday-booking { flex-basis: 100%; }
+  }
+
   /* NAV */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
+    position: relative;
     z-index: 100;
     display: flex;
     justify-content: space-between;
@@ -731,7 +764,7 @@
   .mobile-menu {
     display: none;
     position: fixed;
-    inset: 0;
+    inset: var(--site-header-height, 160px) 0 0;
     background: var(--green);
     z-index: 99;
     flex-direction: column;
@@ -799,6 +832,13 @@
 </head>
 <body>
 
+<header class="site-header">
+  <a class="holiday-banner" href="https://booking.tinpot.com.au/">
+    <span>Open Public Holiday</span><span class="holiday-separator" aria-hidden="true">·</span>
+    <span>Tuesday 3 November</span><span class="holiday-separator" aria-hidden="true">·</span>
+    <span>8:30am–4pm</span><span class="holiday-separator" aria-hidden="true">·</span>
+    <span class="holiday-booking">Click to make a booking</span>
+  </a>
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
@@ -816,6 +856,7 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+</header>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
@@ -1270,6 +1311,12 @@
 </footer>
 
 <script>
+// Keep anchors and the mobile menu below the header as the banner wraps or fonts load.
+const siteHeader = document.querySelector('.site-header');
+const updateHeaderHeight = () => document.documentElement.style.setProperty('--site-header-height', `${siteHeader.getBoundingClientRect().height}px`);
+updateHeaderHeight();
+new ResizeObserver(updateHeaderHeight).observe(siteHeader);
+
 function showTab(id) {
   document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
