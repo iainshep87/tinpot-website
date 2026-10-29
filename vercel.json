@@ -1,1 +1,10 @@
-{"version": 2}
+{
+  "version": 2,
+  "redirects": [
+    {
+      "source": "/menu-tinpot",
+      "destination": "https://www.tinpot.com.au/#menu",
+      "permanent": true
+    }
+  ]
+}
